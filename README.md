@@ -1,4 +1,4 @@
-###  Projeto PicPay Simplificado API
+###  Projeto API de criptografia
 ## Descrição
 Uma aplicação web com foco em criptografia de dados sensíveis feita em Spring no padrão MVC, o projeto conta com uma estrutura CRUD persistidos em MySql e criptografia por meio da classe BCryptPasswordEncoder do Spring Security. 
 
