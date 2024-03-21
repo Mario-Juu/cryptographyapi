@@ -26,17 +26,6 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/document")
-    public ResponseEntity<Optional<User>> findByUserDocument(@RequestBody String userDocument) {
-        Optional<User> user = userService.findByUserDocument(userDocument);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @GetMapping("/creditcardtoken")
-    public ResponseEntity<Optional<User>>  findByCreditCardToken(@RequestBody String creditCardToken) {
-        Optional<User> user = userService.findByCreditCardToken(creditCardToken);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> findById(@PathVariable Long id){
@@ -50,15 +39,15 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PutMapping("/")
-    public ResponseEntity<User> editUser(@RequestBody UserDTO userDTO){
-        User user = userService.updateUser(userDTO);
+    @PutMapping("/{id}")
+    public ResponseEntity<User> editUser(@PathVariable Long id, @RequestBody UserDTO userDTO){
+        User user = userService.updateUser(userDTO, id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<Optional<User>> deleteUser(@RequestBody String userDocument){
-        Optional<User> user = userService.deleteUser(userDocument);
+    public ResponseEntity<Optional<User>> deleteUser(@PathVariable Long id){
+        Optional<User> user = userService.deleteUser(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

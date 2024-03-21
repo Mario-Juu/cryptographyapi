@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.util.ClassUtils.isPresent;
+
 @Service
 public class UserService {
 
@@ -33,24 +35,18 @@ public class UserService {
         return user;
     }
 
-    public Optional<User> findByUserDocument(String userDocument) {
-        return Optional.ofNullable(userRepository.findByUserDocument(userDocument));
+
+    public User updateUser(UserDTO userDTO, Long id){
+        Optional<User> user = userRepository.findById(id);
+        User userEdited = user.get();
+        userEdited.setCreditCardToken(bCryptPasswordEncoder.encode(userDTO.creditCardToken()));
+        userEdited.setValue(userDTO.value());
+        userRepository.save(userEdited);
+        return userEdited;
     }
 
-    public Optional<User> findByCreditCardToken(String creditCardToken) {
-        return Optional.ofNullable(userRepository.findByCreditCardToken(creditCardToken));
-    }
-
-    public User updateUser(UserDTO userDTO){
-        User user = userRepository.findByUserDocument(userDTO.userDocument());
-        user.setCreditCardToken(bCryptPasswordEncoder.encode(userDTO.creditCardToken()));
-        user.setValue(userDTO.value());
-        userRepository.save(user);
-        return user;
-    }
-
-    public Optional<User> deleteUser(String userDocument){
-        Optional<User> user = Optional.ofNullable(userRepository.findByUserDocument(userDocument));
+    public Optional<User> deleteUser(Long id){
+        Optional<User> user = userRepository.findById(id);
         user.ifPresent(value -> userRepository.delete(value));
         return user;
     }
