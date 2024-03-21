@@ -10,6 +10,9 @@ Uma aplicação web com foco em criptografia de dados sensíveis feita em Spring
 - Spring Data
 - Jakarta
 - Spring Security
+- H2 Database
+- JUnit 5
+- Mockito
 
 ## Como usar
 1. Abra sua IDE Java de preferência
